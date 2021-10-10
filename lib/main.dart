@@ -1,5 +1,9 @@
+import 'package:books_app/controller/auth_controller.dart';
+import 'package:books_app/view/sign_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,11 +16,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('data'),
-        ),
+    return Provider(
+      create: (context) => AuthController(),
+      lazy: false,
+      child: const GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SignPage(),
       ),
     );
   }

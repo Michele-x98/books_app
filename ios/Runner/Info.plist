@@ -48,5 +48,17 @@
     	<key>NSAllowsLocalNetworking</key>
     	<true/>
 	</dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+				<string>com.googleusercontent.apps.582952582370-m36tbv38eaf0m2r9bte1g0emdcli4344</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
