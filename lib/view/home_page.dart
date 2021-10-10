@@ -13,14 +13,13 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final hpc = Get.put(HomePageController());
     return Scaffold(
-      body: Obx(
-        () => PageView(
-          controller: hpc.controller,
-          children: const [
-            BooksPage(),
-            FavoritesPage(),
-          ],
-        ),
+      body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
+        controller: hpc.controller,
+        children: const [
+          BooksPage(),
+          FavoritesPage(),
+        ],
       ),
       bottomNavigationBar: const BottomNavBar(),
     );

@@ -9,21 +9,21 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthController {
   final FirebaseAuth auth = FirebaseAuth.instance;
   RxBool isUserLoggedIn = false.obs;
-  Rx<User?> currentUser = null.obs;
+  User? currentUser;
 
   AuthController() {
     subscribeToUserChange();
   }
 
-  void subscribeToUserChange() {
+  Future subscribeToUserChange() async {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
-        log('User NOT logged in');
-        currentUser.value = user;
+        print('User NOT logged in');
+        currentUser = user;
         isUserLoggedIn.value = false;
       } else {
-        log('User Logged in');
-        currentUser.value = user;
+        print('User Logged in');
+        currentUser = user;
         isUserLoggedIn.value = true;
       }
     });
@@ -71,6 +71,7 @@ class AuthController {
     await auth.signOut();
   }
 
+  //TODO Handle excpetion
   Future<UserCredential?> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();

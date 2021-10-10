@@ -1,4 +1,7 @@
 import 'package:books_app/controller/auth_controller.dart';
+import 'package:books_app/view/home_page.dart';
+import 'package:books_app/widgets/completed_snackbar.dart';
+import 'package:books_app/widgets/show_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,24 +25,38 @@ class SignController extends GetxController {
 
   void login(AuthController controller) async {
     if (!formKey.currentState!.validate()) return;
-    await controller.loginInWithEmailAndPassword(
-      emailController.text,
-      passwordController.text,
+    final res = await showOverlayDuringAsync(
+      controller.loginInWithEmailAndPassword(
+        emailController.text,
+        passwordController.text,
+      ),
     );
-    //Go to home page..
+
+    if (res != null) {
+      completeSnackbar('Login completed');
+      Get.to(const HomePage());
+    }
   }
 
   void reg(AuthController controller) async {
     if (!formKey.currentState!.validate()) return;
-    await controller.createUserWithEmailAndPassword(
-      emailController.text,
-      passwordController.text,
+    final res = await showOverlayDuringAsync(
+      controller.createUserWithEmailAndPassword(
+        emailController.text,
+        passwordController.text,
+      ),
     );
-    //Go to home page..
+
+    if (res != null) {
+      completeSnackbar('Registration completed');
+      Get.to(const HomePage());
+    }
   }
 
   void signWithGoogle(AuthController controller) async {
-    await controller.signInWithGoogle();
-    //Go to home page..
+    final res = await controller.signInWithGoogle();
+    if (res != null) {
+      Get.to(const HomePage());
+    }
   }
 }

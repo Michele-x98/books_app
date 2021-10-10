@@ -6,6 +6,7 @@ class BooksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: const [
         Text('Explore thousands of books on the go'),
         //Search box

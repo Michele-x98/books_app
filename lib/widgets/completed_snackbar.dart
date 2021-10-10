@@ -8,6 +8,9 @@ Future? completeSnackbar(String message) => Get.showSnackbar(
         backgroundColor: Colors.green,
         duration: const Duration(seconds: 3),
         shouldIconPulse: true,
-        icon: const Icon(Icons.done_rounded),
+        icon: const Icon(
+          Icons.done_rounded,
+          color: Colors.white,
+        ),
       ),
     );
