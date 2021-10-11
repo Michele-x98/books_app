@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:books_app/widgets/error_snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -75,12 +73,15 @@ class AuthController {
   Future<UserCredential?> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      print('qui');
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
+      print('qua');
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
+      print('fine');
       return await FirebaseAuth.instance.signInWithCredential(credential);
     } on Exception {
       return null;

@@ -1,7 +1,6 @@
 import 'package:books_app/controller/auth_controller.dart';
 import 'package:books_app/view/home_page.dart';
 import 'package:books_app/view/sign_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,9 +20,15 @@ class MyApp extends StatelessWidget {
     return Provider(
       create: (context) => AuthController(),
       lazy: false,
-      child: const GetMaterialApp(
+      child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SignPage(),
+        home: Builder(builder: (context) {
+          return Obx(
+            () => context.read<AuthController>().isUserLoggedIn.value
+                ? HomePage()
+                : SignPage(),
+          );
+        }),
       ),
     );
   }
