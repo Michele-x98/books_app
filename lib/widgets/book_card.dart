@@ -32,9 +32,13 @@ class BookCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           book.volumeInfo!.imageLinks?.thumbnail != null
-              ? ClipRRect(
-                  child: Image.network(book.volumeInfo!.imageLinks!.thumbnail!),
-                  borderRadius: BorderRadius.circular(20),
+              ? Hero(
+                  tag: book.volumeInfo!.imageLinks!.thumbnail!,
+                  child: ClipRRect(
+                    child:
+                        Image.network(book.volumeInfo!.imageLinks!.thumbnail!),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                 )
               : const Icon(Icons.device_unknown),
           SizedBox(

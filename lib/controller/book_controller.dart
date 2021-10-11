@@ -1,5 +1,4 @@
 import 'package:books_app/model/book.dart';
-import 'package:books_app/settings/config.dart';
 import 'package:dio/dio.dart';
 
 class BookController {
@@ -11,7 +10,7 @@ class BookController {
     List<Book> books = [];
     try {
       final res = await Dio()
-          .get('https://www.googleapis.com/books/v1/volumes?q=harry+potter');
+          .get('https://www.googleapis.com/books/v1/volumes?q=harrypotter');
       for (var item in res.data['items']) {
         final book = Book.fromJson(item);
         books.add(book);
