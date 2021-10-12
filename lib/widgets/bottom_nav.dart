@@ -1,4 +1,4 @@
-import 'package:books_app/controller/home_controller.dart';
+import 'package:books_app/service/home_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
@@ -8,7 +8,7 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hpc = Get.find<HomePageController>();
+    final hpc = Get.find<HomePageService>();
     return Obx(
       () => SlidingClippedNavBar(
         backgroundColor: Colors.white,
@@ -20,10 +20,6 @@ class BottomNavBar extends StatelessWidget {
           BarItem(
             icon: Icons.book,
             title: 'Books',
-          ),
-          BarItem(
-            icon: Icons.search_rounded,
-            title: 'Search',
           ),
           BarItem(
             icon: Icons.favorite_border_rounded,

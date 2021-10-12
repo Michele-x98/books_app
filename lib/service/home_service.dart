@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomePageController extends GetxController {
+class HomePageService extends GetxController {
   final PageController controller = PageController();
   final currentIndex = 0.obs;
 

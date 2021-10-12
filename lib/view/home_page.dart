@@ -1,4 +1,4 @@
-import 'package:books_app/controller/home_controller.dart';
+import 'package:books_app/service/home_service.dart';
 import 'package:books_app/widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hpc = Get.put(HomePageController());
+    final hpc = Get.put(HomePageService());
     return Scaffold(
       backgroundColor: Colors.white,
       body: PageView(
@@ -19,6 +19,7 @@ class HomePage extends StatelessWidget {
         controller: hpc.controller,
         children: const [
           BooksPage(),
+          FavoritesPage(),
           FavoritesPage(),
         ],
       ),

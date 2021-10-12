@@ -1,36 +1,20 @@
 import 'package:books_app/widgets/error_snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthController {
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  RxBool isUserLoggedIn = false.obs;
-  User? currentUser;
+import 'interface/auth_interface.dart';
 
-  AuthController() {
-    subscribeToUserChange();
-  }
+class AuthController implements AuthControllerInterface {
+  AuthController._privateConstructor();
+  static final instance = AuthController._privateConstructor();
 
-  Future subscribeToUserChange() async {
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user == null) {
-        print('User NOT logged in');
-        currentUser = user;
-        isUserLoggedIn.value = false;
-      } else {
-        print('User Logged in');
-        currentUser = user;
-        isUserLoggedIn.value = true;
-      }
-    });
-  }
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
+  @override
   Future<UserCredential?> createUserWithEmailAndPassword(
       String email, String password) async {
     try {
-      return await auth.createUserWithEmailAndPassword(
+      return await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -47,10 +31,11 @@ class AuthController {
     }
   }
 
+  @override
   Future<UserCredential?> loginInWithEmailAndPassword(
       String email, String password) async {
     try {
-      return await auth.signInWithEmailAndPassword(
+      return await firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -65,11 +50,8 @@ class AuthController {
     }
   }
 
-  Future<void> singOut() async {
-    await auth.signOut();
-  }
-
   //TODO Handle excpetion
+  @override
   Future<UserCredential?> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -86,5 +68,15 @@ class AuthController {
     } on Exception {
       return null;
     }
+  }
+
+  @override
+  Future<void> singOut() async {
+    await firebaseAuth.signOut();
+  }
+
+  @override
+  Stream<User?> subscribeToUserChange() {
+    return firebaseAuth.authStateChanges();
   }
 }

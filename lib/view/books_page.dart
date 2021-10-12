@@ -1,32 +1,12 @@
+import 'dart:developer';
 import 'dart:ui';
 
-import 'package:anim_search_bar/anim_search_bar.dart';
-import 'package:books_app/controller/book_controller.dart';
-import 'package:books_app/controller/home_controller.dart';
 import 'package:books_app/model/book.dart';
+import 'package:books_app/service/book_page_service.dart';
 import 'package:books_app/view/book_detail.dart';
 import 'package:books_app/widgets/book_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-class BooksPageService extends GetxController {
-  List<Book> fetchedBooks = [];
-  var inAsync = false.obs;
-  TextEditingController textController = TextEditingController();
-
-  BooksPageService() {
-    fetchBooks();
-  }
-
-  fetchBooks() async {
-    inAsync.value = true;
-    final res = await BookController.instance.getSomeBooks();
-    if (res != null) {
-      fetchedBooks = res;
-    }
-    inAsync.value = false;
-  }
-}
 
 class BooksPage extends StatelessWidget {
   const BooksPage({Key? key}) : super(key: key);
@@ -73,20 +53,27 @@ class BooksPage extends StatelessWidget {
           ),
           child: Row(
             children: [
+              Icon(Icons.search_sharp, color: Colors.grey.shade400),
+              const SizedBox(width: 20),
               Expanded(
-                child: ListTile(
-                  onTap: () => Get.find<HomePageController>().animateTo(1),
-                  leading:
-                      Icon(Icons.search_sharp, color: Colors.grey.shade400),
-                  title: Text(
-                    'Search for books..',
-                    style: TextStyle(
-                      color: Colors.grey.shade400,
-                      fontSize: 14,
+                child: TextField(
+                  autofocus: false,
+                  onChanged: (val) => {
+                    if (val.isNotEmpty) {bc.searchBooks(val)}
+                  },
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    label: Text(
+                      'Search for books..',
+                      style: TextStyle(
+                        color: Colors.grey.shade400,
+                        fontSize: 14,
+                      ),
                     ),
                   ),
+                  cursorColor: Colors.indigo,
                 ),
-              ),
+              )
             ],
           ),
         ),
@@ -114,9 +101,10 @@ class BooksPage extends StatelessWidget {
                       itemCount: bc.fetchedBooks.length,
                       itemBuilder: (BuildContext context, int index) {
                         Book book = bc.fetchedBooks[index];
+
                         return GestureDetector(
                           onTap: () => Get.to(
-                            BookDetail(book: book),
+                            () => BookDetail(book: book),
                             duration: const Duration(seconds: 1),
                           ),
                           child: BookCard(book: book),

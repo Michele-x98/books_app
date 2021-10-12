@@ -15,10 +15,10 @@ class BookCard extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.only(left: 15, right: 15, top: 25),
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(12),
       height: 200,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(30),
         color: Colors.white,
         boxShadow: [
           BoxShadow(
@@ -29,7 +29,6 @@ class BookCard extends StatelessWidget {
         ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           book.volumeInfo!.imageLinks?.thumbnail != null
               ? Hero(
@@ -40,7 +39,15 @@ class BookCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                 )
-              : const Icon(Icons.device_unknown),
+              : ClipRRect(
+                  child: Image.network(
+                    'https://m.media-amazon.com/images/I/31l7Cfuq8oL.jpg',
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+          const SizedBox(
+            width: 20,
+          ),
           SizedBox(
             width: Get.width * 0.45,
             child: Column(
@@ -49,6 +56,7 @@ class BookCard extends StatelessWidget {
               children: [
                 Text(
                   "by " + authors,
+                  maxLines: 2,
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.grey[400],
@@ -76,7 +84,8 @@ class BookCard extends StatelessWidget {
                 builCategories(categories),
               ],
             ),
-          )
+          ),
+          const Spacer()
         ],
       ),
     );

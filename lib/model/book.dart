@@ -62,6 +62,7 @@ class VolumeInfo {
   String? previewLink;
   String? infoLink;
   String? canonicalVolumeLink;
+  String? description;
 
   VolumeInfo({
     title,
@@ -82,6 +83,7 @@ class VolumeInfo {
     previewLink,
     infoLink,
     canonicalVolumeLink,
+    description,
   });
 
   VolumeInfo.fromJson(Map<String, dynamic> json) {
@@ -91,6 +93,9 @@ class VolumeInfo {
       for (String aut in json['authors']) {
         authors!.add(aut);
       }
+    } else {
+      authors = [];
+      authors!.add('Unkown');
     }
 
     if (json['categories'] != null) {
@@ -111,11 +116,7 @@ class VolumeInfo {
         : null;
     pageCount = json['pageCount'];
     printType = json['printType'];
-    if (json['categories'] != null) {
-      for (var cat in json['categories']) {
-        categories?.add(cat);
-      }
-    }
+
     if (json['averageRating'] != null) {
       averageRating = json['averageRating'];
     } else {
@@ -134,6 +135,9 @@ class VolumeInfo {
     previewLink = json['previewLink'];
     infoLink = json['infoLink'];
     canonicalVolumeLink = json['canonicalVolumeLink'];
+    if (json['description'] != null) {
+      description = json['description'];
+    }
   }
 
   Map<String, dynamic> toJson() {
