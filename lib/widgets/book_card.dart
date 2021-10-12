@@ -1,4 +1,5 @@
 import 'package:books_app/model/book.dart';
+import 'package:books_app/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -94,7 +95,7 @@ class BookCard extends StatelessWidget {
   Widget builCategories(String categories) => Card(
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        color: const Color.fromRGBO(175, 221, 255, 50),
+        color: ThemeColor.categoryContainerColor,
         margin: const EdgeInsets.all(0),
         child: Container(
           margin: const EdgeInsets.only(

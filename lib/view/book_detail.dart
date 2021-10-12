@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:books_app/provider/auth_provider.dart';
 import 'package:books_app/model/book.dart';
 import 'package:books_app/service/book_detail_service.dart';
+import 'package:books_app/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:get/get.dart';
@@ -48,26 +47,27 @@ class BookDetail extends StatelessWidget {
                             onPressed: () => Navigator.pop(context),
                             icon: const Icon(
                               Icons.arrow_back_ios_rounded,
-                              color: Colors.black87,
+                              color: ThemeColor.primaryColor,
+                              size: 30,
                             ),
                           ),
                           const Spacer(),
                           Obx(
                             () => LikeButton(
                               bubblesColor: const BubblesColor(
-                                dotPrimaryColor: Colors.indigo,
+                                dotPrimaryColor: ThemeColor.primaryColor,
                                 dotSecondaryColor: Colors.orange,
                               ),
                               likeBuilder: (bool isLiked) {
                                 return isLiked
                                     ? const Icon(
                                         Icons.favorite_rounded,
-                                        color: Colors.indigo,
+                                        color: ThemeColor.primaryColor,
                                         size: 30,
                                       )
                                     : const Icon(
                                         Icons.favorite_border_rounded,
-                                        color: Colors.indigo,
+                                        color: ThemeColor.primaryColor,
                                         size: 30,
                                       );
                               },
@@ -207,7 +207,7 @@ class BookDetail extends StatelessWidget {
                 borderRadius: BorderRadius.circular(
                   20,
                 ),
-                color: Colors.indigo.withOpacity(0.10),
+                color: const Color.fromRGBO(175, 221, 255, 50),
               ),
             );
           },
