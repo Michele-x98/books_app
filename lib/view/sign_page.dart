@@ -24,6 +24,7 @@ class SignPage extends StatelessWidget {
             child: ListView(
               shrinkWrap: true,
               children: [
+                const SizedBox(height: 30),
                 CircleAvatar(
                   backgroundColor: Colors.indigo.withOpacity(0.05),
                   radius: 60,
@@ -228,32 +229,37 @@ class SignPage extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(height: 30),
               ],
             ),
           ),
           bottomNavigationBar: SafeArea(
             child: Obx(
-              () => RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: authService.onLogin.value
-                      ? "Don't have an account? "
-                      : "Already have an account?",
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  children: [
-                    TextSpan(
-                      text:
-                          authService.onLogin.value ? ' Register!' : ' Login!',
-                      style: const TextStyle(color: Colors.indigo),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () => authService.onLogin.value =
-                            !authService.onLogin.value,
+              () => Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    text: authService.onLogin.value
+                        ? "Don't have an account? "
+                        : "Already have an account?",
+                    style: const TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
                     ),
-                  ],
+                    children: [
+                      TextSpan(
+                        text: authService.onLogin.value
+                            ? ' Register!'
+                            : ' Login!',
+                        style: const TextStyle(color: Colors.indigo),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () => authService.onLogin.value =
+                              !authService.onLogin.value,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

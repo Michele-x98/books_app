@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:books_app/widgets/error_snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -67,7 +69,8 @@ class AuthController implements AuthControllerInterface {
           return userCredential;
         }
       }
-    } on Exception {
+    } on Exception catch (e) {
+      print(e);
       return null;
     }
   }
