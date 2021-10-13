@@ -43,16 +43,26 @@ class BookController implements BooksControllerInterface {
   @override
   Future<List<Book>?> fetchFavoriteBooks(List<String> ids) async {
     List<Book> books = [];
-    try {
-      for (var element in ids) {
-        final res = await Dio()
-            .get('https://www.googleapis.com/books/v1/volumes/$element');
-        final book = Book.fromJson(res.data);
+    for (var item in ids) {
+      Book? book = await fetchBookById(item);
+      if (book != null) {
         books.add(book);
       }
-    } on Exception {
+    }
+    return books;
+  }
+
+  Future<Book?> fetchBookById(String id) async {
+    try {
+      final res =
+          await Dio().get('https://www.googleapis.com/books/v1/volumes/$id');
+      if (res.statusCode == 200) {
+        final book = Book.fromJson(res.data);
+        return book;
+      }
+      return null;
+    } catch (e) {
       return null;
     }
-    return books.isNotEmpty ? books : null;
   }
 }

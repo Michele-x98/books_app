@@ -29,7 +29,7 @@ class FirestoreController implements FirestoreControllerInterface {
         "favoritesBooks": FieldValue.arrayUnion([id])
       });
       return true;
-    } on Exception catch (e) {
+    } on Exception {
       return false;
     }
   }
@@ -41,14 +41,15 @@ class FirestoreController implements FirestoreControllerInterface {
         "favoritesBooks": FieldValue.arrayRemove([id])
       });
       return true;
-    } on Exception catch (e) {
+    } on Exception {
       return false;
     }
   }
 
   @override
   Stream<DocumentSnapshot<Map<String, dynamic>>> subscribeToFavoritesChange(
-      String userUid) {
+    String userUid,
+  ) {
     return FirebaseFirestore.instance
         .collection('Users')
         .doc(userUid)

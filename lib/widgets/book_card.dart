@@ -1,5 +1,6 @@
 import 'package:books_app/model/book.dart';
 import 'package:books_app/theme.dart';
+import 'package:books_app/view/book_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,80 +15,86 @@ class BookCard extends StatelessWidget {
     var categories = book.volumeInfo?.categories?.first ?? 'Unknown';
     var rating = book.volumeInfo?.averageRating ?? 0;
 
-    return Container(
-      margin: const EdgeInsets.only(left: 15, right: 15, top: 25),
-      padding: const EdgeInsets.all(12),
-      height: 200,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 15,
-            spreadRadius: 5,
-            color: Colors.grey.shade300,
-          )
-        ],
+    return GestureDetector(
+      onTap: () => Get.to(
+        () => BookDetail(book: book),
+        duration: const Duration(seconds: 1),
       ),
-      child: Row(
-        children: [
-          book.volumeInfo!.imageLinks?.thumbnail != null
-              ? Hero(
-                  tag: book.volumeInfo!.imageLinks!.thumbnail!,
-                  child: ClipRRect(
-                    child:
-                        Image.network(book.volumeInfo!.imageLinks!.thumbnail!),
+      child: Container(
+        margin: const EdgeInsets.only(left: 15, right: 15, top: 25),
+        padding: const EdgeInsets.all(12),
+        height: 200,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 15,
+              spreadRadius: 5,
+              color: Colors.grey.shade200,
+            )
+          ],
+        ),
+        child: Row(
+          children: [
+            book.volumeInfo!.imageLinks?.thumbnail != null
+                ? Hero(
+                    tag: book.volumeInfo!.imageLinks!.thumbnail!,
+                    child: ClipRRect(
+                      child: Image.network(
+                          book.volumeInfo!.imageLinks!.thumbnail!),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  )
+                : ClipRRect(
+                    child: Image.network(
+                      'https://m.media-amazon.com/images/I/31l7Cfuq8oL.jpg',
+                    ),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                )
-              : ClipRRect(
-                  child: Image.network(
-                    'https://m.media-amazon.com/images/I/31l7Cfuq8oL.jpg',
-                  ),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-          const SizedBox(
-            width: 20,
-          ),
-          SizedBox(
-            width: Get.width * 0.45,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "by " + authors,
-                  maxLines: 2,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey[400],
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  title,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                buildRating(rating),
-                const SizedBox(
-                  height: 15,
-                ),
-                builCategories(categories),
-              ],
+            const SizedBox(
+              width: 20,
             ),
-          ),
-          const Spacer()
-        ],
+            SizedBox(
+              width: Get.width * 0.45,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "by " + authors,
+                    maxLines: 2,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey[400],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Text(
+                    title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  buildRating(rating),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  builCategories(categories),
+                ],
+              ),
+            ),
+            const Spacer()
+          ],
+        ),
       ),
     );
   }

@@ -27,7 +27,7 @@ class BottomNavBar extends StatelessWidget {
           ),
           BarItem(
             icon: Icons.tune_rounded,
-            title: 'Settings',
+            title: 'Account',
           ),
         ],
       ),

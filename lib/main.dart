@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: FirebaseAuth.instance.currentUser != null
             ? const HomePage()
-            : SignPage(),
+            : const SignPage(),
       ),
     );
   }

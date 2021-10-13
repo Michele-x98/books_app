@@ -31,7 +31,7 @@ class AuthProvider {
   Future<void> singOut() async {
     return await AuthController.instance
         .singOut()
-        .then((value) => Get.offAll(SignPage()));
+        .then((value) => Get.offAll(() => const SignPage()));
   }
 
   void subscribeToUserChange() {

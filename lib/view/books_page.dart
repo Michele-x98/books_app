@@ -1,10 +1,9 @@
-import 'dart:developer';
 import 'dart:ui';
 
 import 'package:books_app/model/book.dart';
 import 'package:books_app/service/book_page_service.dart';
-import 'package:books_app/view/book_detail.dart';
 import 'package:books_app/widgets/book_card.dart';
+import 'package:books_app/widgets/loading_books.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -93,7 +92,7 @@ class BooksPage extends StatelessWidget {
         ),
         Obx(
           () => bc.inAsync.value
-              ? const Text('Loading..')
+              ? const LoadingBooks()
               : bc.fetchedBooks.isNotEmpty
                   ? ListView.builder(
                       shrinkWrap: true,
@@ -102,13 +101,7 @@ class BooksPage extends StatelessWidget {
                       itemBuilder: (BuildContext context, int index) {
                         Book book = bc.fetchedBooks[index];
 
-                        return GestureDetector(
-                          onTap: () => Get.to(
-                            () => BookDetail(book: book),
-                            duration: const Duration(seconds: 1),
-                          ),
-                          child: BookCard(book: book),
-                        );
+                        return BookCard(book: book);
                       })
                   : const Text('Nessun libro trovato'),
         ),
