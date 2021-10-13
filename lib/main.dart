@@ -1,4 +1,5 @@
 import 'package:books_app/provider/auth_provider.dart';
+import 'package:books_app/theme.dart';
 import 'package:books_app/view/home_page.dart';
 import 'package:books_app/view/sign_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,6 +27,13 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: GetMaterialApp(
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: Colors.indigo,
+          ).copyWith(
+            secondary: Colors.green,
+          ),
+        ),
         debugShowCheckedModeBanner: false,
         home: FirebaseAuth.instance.currentUser != null
             ? const HomePage()

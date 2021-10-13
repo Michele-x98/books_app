@@ -50,21 +50,23 @@ class AuthController implements AuthControllerInterface {
     }
   }
 
-  //TODO Handle excpetion
   @override
   Future<UserCredential?> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      print('qui');
-      final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
-      print('qua');
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
-      );
-      print('fine');
-      return await FirebaseAuth.instance.signInWithCredential(credential);
+      if (googleUser != null) {
+        final GoogleSignInAuthentication? googleAuth =
+            await googleUser.authentication;
+        if (googleAuth != null) {
+          final credential = GoogleAuthProvider.credential(
+            accessToken: googleAuth.accessToken,
+            idToken: googleAuth.idToken,
+          );
+          final UserCredential userCredential =
+              await FirebaseAuth.instance.signInWithCredential(credential);
+          return userCredential;
+        }
+      }
     } on Exception {
       return null;
     }

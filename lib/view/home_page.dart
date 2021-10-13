@@ -15,6 +15,7 @@ class HomePage extends StatelessWidget {
     final hpc = Get.put(HomePageService());
     return Scaffold(
       backgroundColor: Colors.white,
+      extendBody: true,
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
         controller: hpc.controller,

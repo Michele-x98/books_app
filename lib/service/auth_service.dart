@@ -59,7 +59,8 @@ class AuthService extends GetxController {
   }
 
   void signWithGoogle(AuthProvider controller) async {
-    final res = await controller.signInWithGoogle();
+    final res = await showOverlayDuringAsync(controller.signInWithGoogle());
+
     if (res != null) {
       await _initFirestoreFavoritesField(res.user!.uid);
       Get.offAll(const HomePage());

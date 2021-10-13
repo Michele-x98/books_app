@@ -31,7 +31,7 @@ class FavouritesPage extends StatelessWidget {
             child: SizedBox(
               width: Get.width * 0.8,
               child: const Text(
-                'Your Favorites Books',
+                'Your Favourites Books',
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   fontSize: 26,

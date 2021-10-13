@@ -1,4 +1,5 @@
 import 'package:books_app/controller/auth_controller.dart';
+import 'package:books_app/service/home_service.dart';
 import 'package:books_app/view/sign_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -25,13 +26,14 @@ class AuthProvider {
   }
 
   Future<UserCredential?> signInWithGoogle() async {
-    await AuthController.instance.signInWithGoogle();
+    return await AuthController.instance.signInWithGoogle();
   }
 
   Future<void> singOut() async {
-    return await AuthController.instance
-        .singOut()
-        .then((value) => Get.offAll(() => const SignPage()));
+    return await AuthController.instance.singOut().then((value) => {
+          Get.find<HomePageService>().controller.jumpTo(0),
+          Get.offAll(() => const SignPage())
+        });
   }
 
   void subscribeToUserChange() {

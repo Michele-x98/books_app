@@ -18,11 +18,11 @@ class BottomNavBar extends StatelessWidget {
         selectedIndex: hpc.currentIndex.value,
         barItems: [
           BarItem(
-            icon: Icons.book,
+            icon: Icons.menu_book_rounded,
             title: 'Books',
           ),
           BarItem(
-            icon: Icons.favorite_border_rounded,
+            icon: Icons.favorite_rounded,
             title: 'Favorites',
           ),
           BarItem(
