@@ -1,6 +1,5 @@
 import 'package:books_app/provider/auth_provider.dart';
 import 'package:books_app/service/auth_service.dart';
-import 'package:books_app/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
