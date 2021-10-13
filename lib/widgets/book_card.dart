@@ -2,6 +2,7 @@ import 'package:books_app/model/book.dart';
 import 'package:books_app/theme.dart';
 import 'package:books_app/view/book_detail.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
 
 class BookCard extends StatelessWidget {
@@ -15,7 +16,7 @@ class BookCard extends StatelessWidget {
     var categories = book.volumeInfo?.categories?.first ?? 'Unknown';
     var rating = book.volumeInfo?.averageRating ?? 0;
 
-    return GestureDetector(
+    return Bounceable(
       onTap: () => Get.to(
         () => BookDetail(book: book),
         duration: const Duration(seconds: 1),
@@ -39,7 +40,8 @@ class BookCard extends StatelessWidget {
           children: [
             book.volumeInfo!.imageLinks?.thumbnail != null
                 ? Hero(
-                    tag: book.volumeInfo!.imageLinks!.thumbnail!,
+                    tag: book.volumeInfo!.hashCode,
+                    transitionOnUserGestures: true,
                     child: ClipRRect(
                       child: Image.network(
                           book.volumeInfo!.imageLinks!.thumbnail!),

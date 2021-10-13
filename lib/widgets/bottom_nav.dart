@@ -12,7 +12,7 @@ class BottomNavBar extends StatelessWidget {
     return Obx(
       () => SlidingClippedNavBar(
         backgroundColor: Colors.white,
-        onButtonPressed: (index) => hpc.animateTo(index),
+        onButtonPressed: (index) => hpc.goTo(index),
         iconSize: 30,
         activeColor: const Color(0xFF01579B),
         selectedIndex: hpc.currentIndex.value,

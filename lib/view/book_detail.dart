@@ -29,7 +29,7 @@ class BookDetail extends StatelessWidget {
                 height: 620,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
-                  color: Colors.indigo.withOpacity(0.10),
+                  // color: ThemeColor.primaryColor.withOpacity(0.1),
                 ),
               ),
               Positioned(
@@ -47,7 +47,7 @@ class BookDetail extends StatelessWidget {
                             onPressed: () => Navigator.pop(context),
                             icon: const Icon(
                               Icons.arrow_back_ios_rounded,
-                              color: ThemeColor.primaryColor,
+                              color: Colors.black87,
                               size: 30,
                             ),
                           ),
@@ -56,18 +56,18 @@ class BookDetail extends StatelessWidget {
                             () => LikeButton(
                               bubblesColor: const BubblesColor(
                                 dotPrimaryColor: ThemeColor.primaryColor,
-                                dotSecondaryColor: Colors.orange,
+                                dotSecondaryColor: Colors.black,
                               ),
                               likeBuilder: (bool isLiked) {
                                 return isLiked
                                     ? const Icon(
                                         Icons.favorite_rounded,
-                                        color: ThemeColor.primaryColor,
+                                        color: Colors.black87,
                                         size: 30,
                                       )
                                     : const Icon(
                                         Icons.favorite_border_rounded,
-                                        color: ThemeColor.primaryColor,
+                                        color: Colors.black87,
                                         size: 30,
                                       );
                               },
@@ -79,29 +79,36 @@ class BookDetail extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            spreadRadius: 5,
-                            blurRadius: 15,
-                            color: Colors.grey.withOpacity(0.4),
-                            offset: const Offset(10, 10),
-                          )
-                        ],
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: hasImage
-                            ? Image.network(
-                                book.volumeInfo!.imageLinks!.thumbnail!,
-                                scale: 0.65,
-                              )
-                            : Image.network(
-                                'https://m.media-amazon.com/images/I/31l7Cfuq8oL.jpg',
-                                scale: 1.65,
-                              ),
+                    Hero(
+                      tag: book.volumeInfo!.hashCode,
+                      transitionOnUserGestures: true,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              spreadRadius: 5,
+                              blurRadius: 15,
+                              color: Colors.grey.withOpacity(0.4),
+                              offset: const Offset(10, 10),
+                            )
+                          ],
+                        ),
+                        child: GestureDetector(
+                          onDoubleTap: () => bookDetailService.updateFavorite(),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: hasImage
+                                ? Image.network(
+                                    book.volumeInfo!.imageLinks!.thumbnail!,
+                                    scale: 0.65,
+                                  )
+                                : Image.network(
+                                    'https://m.media-amazon.com/images/I/31l7Cfuq8oL.jpg',
+                                    scale: 1.65,
+                                  ),
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(

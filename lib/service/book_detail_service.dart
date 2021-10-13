@@ -1,4 +1,5 @@
 import 'package:books_app/controller/firestore_controller.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class BookDetailService extends GetxController {
@@ -24,6 +25,7 @@ class BookDetailService extends GetxController {
   }
 
   Future<bool> updateFavorite() async {
+    HapticFeedback.lightImpact();
     if (isLiked.value) {
       await FirestoreController.instance
           .deleteFavoritesBooksUser(userUid, bookId);
