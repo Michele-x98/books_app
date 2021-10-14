@@ -157,13 +157,11 @@ class BookDetail extends StatelessWidget {
               ),
             ],
           ),
+          book.volumeInfo?.categories != null ? buildCatgories() : Container(),
+          const SizedBox(height: 20),
           book.volumeInfo?.description != null
               ? buildDescription()
               : Container(),
-          const SizedBox(
-            height: 20,
-          ),
-          book.volumeInfo?.categories != null ? buildCatgories() : Container(),
           const SizedBox(
             height: 20,
           ),
