@@ -1,5 +1,4 @@
 import 'package:books_app/provider/auth_provider.dart';
-import 'package:books_app/theme.dart';
 import 'package:books_app/view/home_page.dart';
 import 'package:books_app/view/sign_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
