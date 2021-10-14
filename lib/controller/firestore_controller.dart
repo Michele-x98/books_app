@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'interface/firestore_interface.dart';
 
@@ -10,15 +11,15 @@ class FirestoreController implements FirestoreControllerInterface {
   CollectionReference users = FirebaseFirestore.instance.collection('Users');
 
   @override
-  Future initFavoritesFirestoreField(String userUid) async {
+  Future initFavoritesFirestoreField(User user) async {
     //Check if user already exist on Firestore
+    final userUid = user.uid;
     await users.doc(userUid).get().then((value) async {
       if (value.exists) {
         return;
       }
-      await users
-          .doc(userUid)
-          .set({"favoritesBooks": FieldValue.arrayUnion([])});
+      await users.doc(userUid).set(
+          {"favoritesBooks": FieldValue.arrayUnion([]), "email": user.email});
     });
   }
 

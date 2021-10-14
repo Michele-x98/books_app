@@ -30,14 +30,14 @@ class AuthService extends GetxController {
 
   void login(AuthProvider controller) async {
     if (!formKey.currentState!.validate()) return;
-    final res = await showOverlayDuringAsync(
+    UserCredential? res = await showOverlayDuringAsync(
       controller.loginInWithEmailAndPassword(
         emailController.text,
         passwordController.text,
       ),
     );
     if (res != null) {
-      await showOverlayDuringAsync(_initFirestoreFavoritesField(res.user!.uid));
+      await showOverlayDuringAsync(_initFirestoreFavoritesField(res.user!));
       Get.offAll(() => const HomePage());
     }
   }
@@ -52,23 +52,24 @@ class AuthService extends GetxController {
     );
 
     if (res != null) {
-      await _initFirestoreFavoritesField(res.user!.uid);
+      await _initFirestoreFavoritesField(res.user!);
       Get.offAll(const HomePage());
       completeSnackbar('Registration completed');
     }
   }
 
   void signWithGoogle(AuthProvider controller) async {
-    final res = await showOverlayDuringAsync(controller.signInWithGoogle());
+    UserCredential? res =
+        await showOverlayDuringAsync(controller.signInWithGoogle());
 
     if (res != null) {
-      await _initFirestoreFavoritesField(res.user!.uid);
+      await _initFirestoreFavoritesField(res.user!);
       Get.offAll(const HomePage());
     }
   }
 
-  Future _initFirestoreFavoritesField(String userUid) async {
-    await FirestoreController.instance.initFavoritesFirestoreField(userUid);
+  Future _initFirestoreFavoritesField(User user) async {
+    await FirestoreController.instance.initFavoritesFirestoreField(user);
   }
 
   @override

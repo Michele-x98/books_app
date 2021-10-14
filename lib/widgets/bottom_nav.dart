@@ -22,7 +22,7 @@ class BottomNavBar extends StatelessWidget {
             title: 'Books',
           ),
           BarItem(
-            icon: Icons.favorite_rounded,
+            icon: Icons.bookmark_border_rounded,
             title: 'Favorites',
           ),
           BarItem(

@@ -61,12 +61,12 @@ class BookDetail extends StatelessWidget {
                               likeBuilder: (bool isLiked) {
                                 return isLiked
                                     ? const Icon(
-                                        Icons.favorite_rounded,
+                                        Icons.bookmark,
                                         color: Colors.black87,
                                         size: 30,
                                       )
                                     : const Icon(
-                                        Icons.favorite_border_rounded,
+                                        Icons.bookmark_border_rounded,
                                         color: Colors.black87,
                                         size: 30,
                                       );
