@@ -79,7 +79,7 @@ class SignPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  'Search and buy your books',
+                  'Search and save your books',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 14,
