@@ -1,9 +1,14 @@
+
 <p align="center">
-  <img src="https://github.com/Michele-x98/books_app/blob/master/images/image1.jpeg">
+  <img src="https://github.com/Michele-x98/books_app/blob/master/images/reading.png" width="400">
 </p>
 
-# MyBooks
+---
 
+<p align="center">
+
+ ## MyBooks
+ 
 Mobile app developed in Flutter for iOS and Android to search and save books via GoogleBooksAPI.
 <br><br>
 The app provide a sign-in process powered by Firebase with email-password or via Google platform.
@@ -13,6 +18,11 @@ After login you can search for books and save it in your favourits section.
 The app work with Firebase Firestore and Firebase Cloud Function to implement a feature after a success registration.
 <br><br>
 On a specific event triggers, the nodeJS server send a Welcome email to the new User created on Firestore.
+</p>
+
+<p align="center">
+  <img src="https://github.com/Michele-x98/books_app/blob/master/images/image1.jpeg">
+</p>
 
 ## Installation
 
