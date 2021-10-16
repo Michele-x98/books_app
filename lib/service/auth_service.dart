@@ -31,6 +31,8 @@
 
  */
 
+import 'dart:math';
+
 import 'package:books_app/provider/auth_provider.dart';
 import 'package:books_app/view/home_page.dart';
 import 'package:books_app/widgets/completed_snackbar.dart';
@@ -38,6 +40,7 @@ import 'package:books_app/widgets/show_overlay.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:email_validator/email_validator.dart';
 
 import '../controller/firestore_controller.dart';
 
@@ -57,6 +60,20 @@ class AuthService extends GetxController {
       return 'Error, password incorrect';
     }
     return null;
+  }
+
+  String? validateEmail(String? email) {
+    if (email!.isEmpty) {
+      return 'Error, empty email';
+    }
+    if (email.length < 4 || email.length > 16) {
+      return 'Error, the password must be between 4 and 16 characters';
+    }
+    if (EmailValidator.validate(email)) {
+      return null;
+    } else {
+      return 'Error, invalid email';
+    }
   }
 
   void login(AuthProvider controller) async {

@@ -60,11 +60,12 @@ class SignPage extends StatelessWidget {
                 CircleAvatar(
                   backgroundColor: Colors.indigo.withOpacity(0.05),
                   radius: 60,
-                  child: const Icon(
-                    Icons.menu_book_rounded,
-                    size: 70,
-                    color: Colors.indigo,
-                  ),
+                  child: Image.asset('images/reading.png'),
+                  // const Icon(
+                  //   Icons.menu_book_rounded,
+                  //   size: 70,
+                  //   color: Colors.indigo,
+                  // ),
                 ),
                 const SizedBox(height: 30),
                 const Text(
@@ -100,7 +101,7 @@ class SignPage extends StatelessWidget {
                           ),
                           TextFormField(
                             controller: authService.emailController,
-                            validator: (v) {},
+                            validator: authService.validateEmail,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -109,7 +110,6 @@ class SignPage extends StatelessWidget {
                               floatingLabelBehavior:
                                   FloatingLabelBehavior.never,
                               labelText: 'Email',
-                              //TODO validate email
                               filled: true,
                               prefixIcon: const Icon(
                                 Icons.account_circle,
