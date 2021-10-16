@@ -56,8 +56,8 @@ class AuthService extends GetxController {
     if (password!.isEmpty) {
       return 'Error, empty password';
     }
-    if (password.length < 4 || password.length > 12) {
-      return 'Error, password incorrect';
+    if (password.length < 4 || password.length > 16) {
+      return 'Error, password must be beethween 4 and 16 characters';
     }
     return null;
   }
@@ -66,9 +66,7 @@ class AuthService extends GetxController {
     if (email!.isEmpty) {
       return 'Error, empty email';
     }
-    if (email.length < 4 || email.length > 16) {
-      return 'Error, the password must be between 4 and 16 characters';
-    }
+
     if (EmailValidator.validate(email)) {
       return null;
     } else {
