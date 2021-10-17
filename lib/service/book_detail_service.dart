@@ -39,6 +39,7 @@ class BookDetailService extends GetxController {
   var isLiked = false.obs;
   late String userUid;
   late String bookId;
+  FirestoreController _firestoreController = FirestoreController.instance;
 
   BookDetailService(String idUser, String idBook) {
     userUid = idUser;
@@ -47,7 +48,7 @@ class BookDetailService extends GetxController {
   }
 
   void subToFavorites() {
-    FirestoreController.instance.subscribeToFavoritesChange(userUid).listen(
+    _firestoreController.subscribeToFavoritesChange(userUid).listen(
       (event) {
         List<String>? favorites = (event['favoritesBooks'] as List)
             .map((item) => item as String)
@@ -60,12 +61,11 @@ class BookDetailService extends GetxController {
   Future<bool> updateFavorite() async {
     HapticFeedback.lightImpact();
     if (isLiked.value) {
-      await FirestoreController.instance
-          .deleteFavoritesBooksUser(userUid, bookId);
+      await _firestoreController.deleteFavoritesBooksUser(userUid, bookId);
       isLiked.value = false;
       return false;
     }
-    await FirestoreController.instance.addFavoritesBooksUser(userUid, bookId);
+    await _firestoreController.addFavoritesBooksUser(userUid, bookId);
     isLiked.value = true;
     return true;
   }

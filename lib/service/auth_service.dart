@@ -31,8 +31,6 @@
 
  */
 
-import 'dart:math';
-
 import 'package:books_app/provider/auth_provider.dart';
 import 'package:books_app/view/home_page.dart';
 import 'package:books_app/widgets/completed_snackbar.dart';
@@ -51,6 +49,8 @@ class AuthService extends GetxController {
   final formKey = GlobalKey<FormState>();
   RxBool showPassword = true.obs;
   RxBool onLogin = true.obs;
+
+  FirestoreController _firestoreController = FirestoreController.instance;
 
   String? validatePassword(String? password) {
     if (password!.isEmpty) {
@@ -74,10 +74,10 @@ class AuthService extends GetxController {
     }
   }
 
-  void login(AuthProvider controller) async {
+  void login(AuthProvider authProvider) async {
     if (!formKey.currentState!.validate()) return;
     UserCredential? res = await showOverlayDuringAsync(
-      controller.loginInWithEmailAndPassword(
+      authProvider.authController.loginInWithEmailAndPassword(
         emailController.text,
         passwordController.text,
       ),
@@ -88,10 +88,10 @@ class AuthService extends GetxController {
     }
   }
 
-  void reg(AuthProvider controller) async {
+  void reg(AuthProvider authProvider) async {
     if (!formKey.currentState!.validate()) return;
     UserCredential? res = await showOverlayDuringAsync(
-      controller.createUserWithEmailAndPassword(
+      authProvider.authController.createUserWithEmailAndPassword(
         emailController.text,
         passwordController.text,
       ),
@@ -104,9 +104,10 @@ class AuthService extends GetxController {
     }
   }
 
-  void signWithGoogle(AuthProvider controller) async {
-    UserCredential? res =
-        await showOverlayDuringAsync(controller.signInWithGoogle());
+  void signWithGoogle(AuthProvider authProvider) async {
+    UserCredential? res = await showOverlayDuringAsync(
+      authProvider.authController.signInWithGoogle(),
+    );
 
     if (res != null) {
       await _initFirestoreFavoritesField(res.user!);
@@ -115,6 +116,6 @@ class AuthService extends GetxController {
   }
 
   Future _initFirestoreFavoritesField(User user) async {
-    await FirestoreController.instance.initFavoritesFirestoreField(user);
+    await _firestoreController.initFavoritesFirestoreField(user);
   }
 }

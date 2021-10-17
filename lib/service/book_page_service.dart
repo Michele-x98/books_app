@@ -40,6 +40,7 @@ class BooksPageService extends GetxController {
   List<Book> fetchedBooks = [];
   var inAsync = false.obs;
   TextEditingController textController = TextEditingController();
+  BookController _bookController = BookController.instance;
 
   BooksPageService() {
     fetchBooks();
@@ -47,7 +48,7 @@ class BooksPageService extends GetxController {
 
   fetchBooks() async {
     inAsync.value = true;
-    final res = await BookController.instance.getSomeBooks();
+    final res = await _bookController.getSomeBooks();
     if (res != null) {
       fetchedBooks = res;
     }
@@ -58,7 +59,7 @@ class BooksPageService extends GetxController {
     inAsync.value = true;
     final res = await Future.delayed(
       Duration(milliseconds: 500),
-      () => BookController.instance.searchBooks(val),
+      () => _bookController.searchBooks(val),
     );
     if (res != null) {
       fetchedBooks = res;

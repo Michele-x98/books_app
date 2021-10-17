@@ -42,41 +42,28 @@ class AuthProvider {
   RxBool isUserLoggedIn = false.obs;
   User? currentUser;
 
+  AuthController _authController = AuthController.instance;
+  AuthController get authController => _authController;
+
   AuthProvider() {
     subscribeToUserChange();
   }
 
-  Future<UserCredential?> createUserWithEmailAndPassword(
-      String email, String password) async {
-    return await AuthController.instance
-        .createUserWithEmailAndPassword(email, password);
-  }
-
-  Future<UserCredential?> loginInWithEmailAndPassword(
-      String email, String password) async {
-    return await AuthController.instance
-        .loginInWithEmailAndPassword(email, password);
-  }
-
-  Future<UserCredential?> signInWithGoogle() async {
-    return await AuthController.instance.signInWithGoogle();
-  }
-
   Future<void> singOut() async {
-    return await AuthController.instance.singOut().then((value) => {
+    return await _authController.singOut().then((value) => {
           Get.find<HomePageService>().controller.jumpTo(0),
           Get.offAll(() => const SignPage())
         });
   }
 
-  void subscribeToUserChange() {
-    AuthController.instance.subscribeToUserChange().listen(
-          (User? event) => _handleUserChange(event),
-        );
+  Future<bool> checkUserLoggedIn() async {
+    return _authController.firebaseAuth.currentUser != null ? true : false;
   }
 
-  Future<bool> checkUserLoggedIn() async {
-    return FirebaseAuth.instance.currentUser != null ? true : false;
+  void subscribeToUserChange() {
+    _authController.subscribeToUserChange().listen(
+          (User? event) => _handleUserChange(event),
+        );
   }
 
   _handleUserChange(User? user) {
