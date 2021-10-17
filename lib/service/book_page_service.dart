@@ -56,7 +56,10 @@ class BooksPageService extends GetxController {
 
   searchBooks(String val) async {
     inAsync.value = true;
-    final res = await BookController.instance.searchBooks(val);
+    final res = await Future.delayed(
+      Duration(milliseconds: 500),
+      () => BookController.instance.searchBooks(val),
+    );
     if (res != null) {
       fetchedBooks = res;
     }
